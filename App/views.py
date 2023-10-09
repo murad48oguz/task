@@ -45,7 +45,7 @@ def user_logout(request):
   
 
    
-
+@login_required(login_url="/login/")
 def upload(request):
 
     if request.method == "POST":
