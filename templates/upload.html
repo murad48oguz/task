@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Upload</title>
+</head>
+<body>
+    <h2>File Upload</h2>
+    <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% if form.errors %}
+            <ul class="errors">
+                {% for field in form %}
+                    {% for error in field.errors %}
+                    <li>{{ error|escape }}</li>
+                    {% endfor %}
+                {% endfor %}
+                {% for error in form.non_field_errors %}
+                <li>{{ error|escape }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+       
+
+            <input type="file" name="file" />
+            <input type="text" name="filename" placeholder="Name" />
+            <input type="text" name="description" placeholder="Description" />
+
+            <input type="submit" value="Upload file">
+    </form>
+
+</body>
+</html>
