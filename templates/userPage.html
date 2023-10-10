@@ -9,7 +9,7 @@
     
     {% if user.is_authenticated %}
         
-    <a href="{% url 'user_logout' %}">LOGOUT</a>
+    <a href="{% url 'user_logout' %}">LOGOUT ({{ user.username }})</a>
     <hr>
     <a href="{% url 'upload' %}">Upload</a>
     {% endif %}
@@ -20,9 +20,9 @@
    
 
     
- <h3>Other users sharings</h3>
+ <h3>User's sharings</h3>
 
+ <a href="{% url 'userFiles' %}">Sharings</a>
  
-
 </body>
 </html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Files Uploaded by {{ request.user.username }}</h2>
+
+   
+        {% for file in user_files %}
+        <h3><a href="{{ file.url }}">{{ file.filename }}</a></h3>
+        {% endfor %}
+        
+</body>
+</html>

@@ -4,6 +4,8 @@ from django.core.files.storage import FileSystemStorage
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from .forms import FileUpload
+from .models import UserProfile
+from .models import File
 
 
 def index(request):
@@ -33,10 +35,23 @@ def loginPage(request):
 
 @login_required(login_url="/login/")
 def userPage(request):
-    return render(request,'userPage.html')
+      
+        return render(request, 'userPage.html')
+    
+    
   
 
-
+def user_files(request):
+    try:
+        user_profile = UserProfile.objects.get(user=request.user)
+        print(user_profile)
+        user_files = File.objects.filter(user=request.user)
+        print(user_files)
+        return render(request, 'userFiles.html', {'user_files': user_files})
+    except UserProfile.DoesNotExist:
+        UserProfile.objects.create(user=request.user)
+        return redirect('userPage')
+    
 
 @login_required(login_url="/login/")
 def user_logout(request):
@@ -49,10 +64,11 @@ def user_logout(request):
 def upload(request):
 
     if request.method == "POST":
-        print('hfh')
         form = FileUpload(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            file=form.save(commit=False)
+            file.user=request.user
+            file.save()
             return redirect('userPage')
         
 

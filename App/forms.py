@@ -6,7 +6,7 @@ from django.core.exceptions import ValidationError
 class FileUpload(ModelForm):
   class Meta:
     model = File
-    fields = ["file", "filename", "description"]
+    fields = '__all__'
 
   def clean_file(self):
     file = self.cleaned_data["file"]
