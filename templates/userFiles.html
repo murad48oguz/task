@@ -8,10 +8,15 @@
 <body>
     <h2>Files Uploaded by {{ request.user.username }}</h2>
 
-   
-        {% for file in user_files %}
-        <h3><a href="{{ file.url }}">{{ file.filename }}</a></h3>
-        {% endfor %}
-        
+    {% for file in user_files %}
+        <h3><a href="{{ file.file.url }}">{{ file.filename }}</a></h3>
+        <form method="post" action="{% url 'share_file' file.id %}">
+            {% csrf_token %}
+            <input type="text" name="username" placeholder="Write username to share" required><br>
+            <input type="submit" value="Share">
+        </form>
+    {% endfor %}
+
+    {% comment %} {{context}} {% endcomment %}
 </body>
 </html>

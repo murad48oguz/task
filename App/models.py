@@ -13,7 +13,8 @@ class File(models.Model):
     file = models.FileField(upload_to="uploads/", blank=False)
     upload_date = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User,blank=True,on_delete=models.CASCADE)
- 
+    
+
     
     def __str__(self):
         return self.filename
@@ -26,3 +27,4 @@ class File(models.Model):
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     files = models.ManyToManyField(File, related_name='users')
+    # shared_files = models.ManyToManyField(File, related_name='shared_with')
